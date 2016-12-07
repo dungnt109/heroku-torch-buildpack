@@ -9,9 +9,6 @@ set -o pipefail   # don't ignore exit codes when piping output
 set -o nounset    # fail on unset variables
 unset GIT_DIR     # Avoid GIT_DIR leak from previous build step
 
-echo "Making sure $CACHE_DIR/torch exists..."
-mkdir -p $CACHE_DIR/torch
-
 echo 'Checking to see if cmake is fetched....'
 if [ ! -d "$CACHE_DIR/cmake-3.7.1" ]; then
   cd $CACHE_DIR

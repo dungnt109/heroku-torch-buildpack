@@ -3,11 +3,14 @@ CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 LD_LIBRARY_PATH:$CACHE_DIR/torch/lib
 
-PATH=/sbin:$BUILD_DIR/torch/bin:$BUILD_DIR/torch/sbin:$CACHE_DIR/torch/bin:$CACHE_DIR/torch/sbin:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/bin:/usr/local/bin:/bin
+PATH=/sbin:/app/torch/bin:/app/torch/sbin:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/bin:/usr/local/bin:/bin
 set -o errexit    # always exit on error
 set -o pipefail   # don't ignore exit codes when piping output
 set -o nounset    # fail on unset variables
 unset GIT_DIR     # Avoid GIT_DIR leak from previous build step
+
+rm -rf $CACHE_DIR/cmake-3.7.1*
+rm -rf $CACHE_DIR/luajit-rocks
 
 echo "Making sure $CACHE_DIR/torch exists..."
 mkdir -p $CACHE_DIR/torch
@@ -25,7 +28,7 @@ else
 
   echo 'Building cmake...'
   cd cmake-3.7.1
-  ./bootstrap --prefix=$BUILD_DIR/torch
+  ./bootstrap --prefix=/app/torch
   make
 fi
 
@@ -46,12 +49,10 @@ fi
 
 if [ ! -d "$CACHE_DIR/luajit-rocks/build" ]; then
   echo 'Building luajit and luarocks...'
-  cd $CACHE_DIR
-  ls
-  cd luajit-rocks
+  cd $CACHE_DIR/luajit-rocks
   mkdir build
   cd build
-  cmake .. -DCMAKE_INSTALL_PREFIX=$BUILD_DIR/torch
+  cmake .. -DCMAKE_INSTALL_PREFIX=/app/torch
 fi
 
 echo "Switching to the $CACHE_DIR/luajit-rocks/build directory..."

@@ -3,6 +3,9 @@ CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 LD_LIBRARY_PATH:/app/torch/lib
 
+rm -rf $CACHE_DIR/cmake-3.7.1
+rm -rf $CACHE_DIR/luajit-rocks
+
 PATH=/sbin:/app/torch/bin:/app/torch/sbin:$BUILD_DIR/torch/bin:$BUILD_DIR/torch/sbin:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/bin:/usr/local/bin:/bin
 set -o errexit    # always exit on error
 set -o pipefail   # don't ignore exit codes when piping output

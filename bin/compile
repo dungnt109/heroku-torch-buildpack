@@ -55,6 +55,10 @@ echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/app/torch/lib' >> $BUILD_DIR/.pro
 
 echo 'site_config.LUA_INCDIR=[[/app/torch/include]]' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
 echo 'site_config.LUA_LIBDIR=[[/app/torch/lib/lua/5.1/]]' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
+echo 'site_config.LUAROCKS_PREFIX=[[/app/torch/]]' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
+echo 'site_config.LUA_BINDIR=[[/app/torch/bin]]' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
+echo 'site_config.LUAROCKS_SYSCONFDIR=[[/app/torch/etc/luarocks]]' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
+echo 'site_config.LUAROCKS_ROCKS_TREE=[[/app/torch/]]' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
 
 awk 'NR == 1 {$0="#!/app/torch/bin/luajit"} 1' $BUILD_DIR/torch/bin/luarocks > $BUILD_DIR/torch/bin/luarocks.new
 mv $BUILD_DIR/torch/bin/luarocks{,.old}

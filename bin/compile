@@ -50,6 +50,14 @@ echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:$CACHE_DIR/torch/lib" >> $BUILD_D
 echo "export LUA_PATH=$CACHE_DIR/torch/share/lua/5.1/?.lua;$CACHE_DIR/torch/share/lua/5.1/?/init.lua;\$LUA_PATH" >> $BUILD_DIR/.profile.d/lua.sh
 echo "export LUA_CPATH=$CACHE_DIR/torch/share/lua/5.1/?.so;\$LUA_CPATH" >> $BUILD_DIR/.profile.d/lua.sh
 
+echo '---'
+echo $LD_LIBRARY_PATH
+echo '---'
+echo $LUA_PATH
+echo '---'
+echo $LUA_CPATH
+echo '---'
+
 echo "Checking to see if $BUILD_DIR/setup.sh exists..."
 if [ -f "$BUILD_DIR/setup.sh" ]; then
   echo "Running \`sh $BUILD_DIR/setup.sh\`..."

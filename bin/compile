@@ -46,7 +46,9 @@ fi
 
 if [ ! -d "$CACHE_DIR/luajit-rocks/build" ]; then
   echo 'Building luajit and luarocks...'
-  cd $CACHE_DIR/luajit-rocks
+  cd $CACHE_DIR
+  ls
+  cd luajit-rocks
   mkdir build
   cd build
   cmake .. -DCMAKE_INSTALL_PREFIX=$BUILD_DIR/torch

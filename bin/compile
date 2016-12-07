@@ -40,7 +40,7 @@ rm -rf build
 mkdir build
 cd build
 echo "$CACHE_DIR/cmake-3.7.1/bin/cmake"
-$CACHE_DIR/cmake-3.7.1/bin/cmake .. -DCMAKE_INSTALL_PREFIX=/app/torch
+$CACHE_DIR/cmake-3.7.1/bin/cmake .. -DCMAKE_INSTALL_PREFIX=$BUILD_DIR/torch
 echo 'Installing luajit and luarocks...'
 make install
 

@@ -55,12 +55,24 @@ echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/app/torch/lib' >> $BUILD_DIR/.pro
 echo 'export LUA_PATH="./?.lua;/app/torch/share/lua/5.1/jit/?.lua;/app/torch/share/lua/5.1/jit/?/init.lua;/app/torch/share/lua/5.1/luarocks/?.lua;/app/torch/share/lua/5.1/luarocks/?/init.lua;/app/torch/share/lua/5.1/?.lua;/app/torch/share/lua/5.1/?/init.lua"' >> $BUILD_DIR/.profile.d/lua.sh
 echo 'export LUA_CPATH="/app/torch/lib/lua/5.1/?.so;/app/torch/share/lua/5.1/?.so;"' >> $BUILD_DIR/.profile.d/lua.sh
 
-echo 'site_config.LUA_INCDIR=[[/app/torch/include]]' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
-echo 'site_config.LUA_LIBDIR=[[/app/torch/lib/lua/5.1/]]' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
+rm $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
+echo 'local site_config = {}' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
+echo '' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
 echo 'site_config.LUAROCKS_PREFIX=[[/app/torch/]]' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
+echo 'site_config.LUA_INCDIR=[[/app/torch/include]]' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
+echo 'site_config.LUA_LIBDIR=[[/app/torch/lib]]' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
 echo 'site_config.LUA_BINDIR=[[/app/torch/bin]]' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
+echo 'site_config.LUA_INTERPRETER = [[luajit]]' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
 echo 'site_config.LUAROCKS_SYSCONFDIR=[[/app/torch/etc/luarocks]]' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
 echo 'site_config.LUAROCKS_ROCKS_TREE=[[/app/torch/]]' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
+echo 'site_config.LUAROCKS_ROCKS_SUBDIR=[[lib/luarocks/rocks]]' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
+echo 'site_config.LUA_DIR_SET = true' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
+echo 'site_config.LUAROCKS_UNAME_S=[[Darwin]]' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
+echo 'site_config.LUAROCKS_UNAME_M=[[x86_64]]' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
+echo 'site_config.LUAROCKS_DOWNLOADER=[[wget]]' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
+echo 'site_config.LUAROCKS_MD5CHECKER=[[md5]]' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
+echo '' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
+echo 'return site_config' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
 
 awk 'NR == 1 {$0="#!/app/torch/bin/luajit"} 1' $BUILD_DIR/torch/bin/luarocks > $BUILD_DIR/torch/bin/luarocks.new
 mv $BUILD_DIR/torch/bin/luarocks{,.old}

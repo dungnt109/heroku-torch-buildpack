@@ -38,7 +38,7 @@ echo "Switching to the $CACHE_DIR directory..."
 cd $CACHE_DIR
 
 echo 'Checking to see if luajit and luarocks are fetched....'
-if hash luarocks 2>/dev/null; then
+if [ ! -d "$CACHE_DIR/luajit-rocks" ]; then
   echo 'luajit and luarocks are fetched, skipping...'
 else
   echo 'Fetching luajit and luarocks...'

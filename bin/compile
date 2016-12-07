@@ -54,7 +54,9 @@ echo 'export PATH=/app/torch/bin:/app/torch/sbin:$PATH' >> $BUILD_DIR/.profile.d
 echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/app/torch/lib' >> $BUILD_DIR/.profile.d/lua.sh
 echo 'export LUA_PATH="./?.lua;/app/torch/share/lua/5.1/jit/?.lua;/app/torch/share/lua/5.1/jit/?/init.lua;/app/torch/share/lua/5.1/luarocks/?.lua;/app/torch/share/lua/5.1/luarocks/?/init.lua;/app/torch/share/lua/5.1/?.lua;/app/torch/share/lua/5.1/?/init.lua"' >> $BUILD_DIR/.profile.d/lua.sh
 echo 'export LUA_CPATH="/app/torch/lib/lua/5.1/?.so;/app/torch/share/lua/5.1/?.so;"' >> $BUILD_DIR/.profile.d/lua.sh
-echo "alias md5=md5sum | awk '{print \$1}'" >> $BUILD_DIR/.profile.d/lua.sh
+
+echo "md5sum | awk '{print \$1}'" >> $BUILD_DIR/torch/bin/md5
+chmod 755 $BUILD_DIR/torch/bin/md5
 
 rm $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua
 echo 'local site_config = {}' >> $BUILD_DIR/torch/share/lua/5.1/luarocks/site_config.lua

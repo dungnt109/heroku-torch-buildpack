@@ -70,6 +70,16 @@ mv $BUILD_DIR/torch/bin/luarocks{.new,}
 rm $BUILD_DIR/torch/bin/luarocks.old
 chmod 755 $BUILD_DIR/torch/bin/luarocks
 
+awk 'NR == 1 {$0="#!/app/torch/bin/luajit"} 1' $BUILD_DIR/torch/bin/luarocks-admin > $BUILD_DIR/torch/bin/luarocks-admin.new
+mv $BUILD_DIR/torch/bin/luarocks-admin{,.old}
+mv $BUILD_DIR/torch/bin/luarocks-admin{.new,}
+rm $BUILD_DIR/torch/bin/luarocks-admin.old
+awk 'NR == 3 {$0="package.path = [[/app/torch/share/lua/5.1/?.lua;/app/torch/share/lua/5.1/?/init.lua;]]..package.path"} 1' $BUILD_DIR/torch/bin/luarocks-admin > $BUILD_DIR/torch/bin/luarocks-admin.new
+mv $BUILD_DIR/torch/bin/luarocks-admin{,.old}
+mv $BUILD_DIR/torch/bin/luarocks-admin{.new,}
+rm $BUILD_DIR/torch/bin/luarocks-admin.old
+chmod 755 $BUILD_DIR/torch/bin/luarocks-admin
+
 awk 'NR == 11 {$0="  {root=\"/app/torch\", bin_dir=\"/app/torch/bin\", lib_dir=\"/app/torch/lib/lua/5.1\", lua_dir=\"/app/torch/share/lua/5.1\"}"} 1' $BUILD_DIR/torch/etc/luarocks/config.lua > $BUILD_DIR/torch/etc/luarocks/config.lua.new
 mv $BUILD_DIR/torch/etc/luarocks/config.lua{,.old}
 mv $BUILD_DIR/torch/etc/luarocks/config.lua{.new,}

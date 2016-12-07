@@ -40,7 +40,7 @@ rm -rf build
 mkdir build
 cd build
 echo "$CACHE_DIR/cmake-3.7.1/bin/cmake"
-$CACHE_DIR/cmake-3.7.1/bin/cmake .. -DCMAKE_INSTALL_PREFIX=$BUILD_DIR/torch
+$CACHE_DIR/cmake-3.7.1/bin/cmake .. -DCMAKE_INSTALL_PREFIX=/app/torch
 echo 'Installing luajit and luarocks...'
 make install
 
@@ -50,11 +50,3 @@ cd $BUILD_DIR
 mkdir -p $BUILD_DIR/.profile.d
 echo 'export PATH=/app/torch/bin:/app/torch/sbin:$PATH' >> $BUILD_DIR/.profile.d/lua.sh
 echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/app/torch/lib' >> $BUILD_DIR/.profile.d/lua.sh
-
-export PATH=$BUILD_DIR/torch/bin:$PATH
-
-echo "Checking to see if $BUILD_DIR/setup.sh exists..."
-if [ -f "$BUILD_DIR/setup.sh" ]; then
-  echo "Running \`sh $BUILD_DIR/setup.sh\`..."
-  sh setup.sh
-fi

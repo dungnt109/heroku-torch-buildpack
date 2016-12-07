@@ -64,3 +64,4 @@ awk 'NR == 3 {$0="package.path = [[/app/torch/share/lua/5.1?.lua;/app/torch/shar
 mv $BUILD_DIR/torch/bin/luarocks{,.old}
 mv $BUILD_DIR/torch/bin/luarocks{.new,}
 rm $BUILD_DIR/torch/bin/luarocks.old
+chmod 755 $BUILD_DIR/torch/bin/luarocks

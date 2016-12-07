@@ -1,7 +1,7 @@
 BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
-LD_LIBRARY_PATH:$CACHE_DIR/torch/lib
+LD_LIBRARY_PATH:/app/torch/lib
 
 PATH=/sbin:/app/torch/bin:/app/torch/sbin:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/bin:/usr/local/bin:/bin
 set -o errexit    # always exit on error
@@ -62,6 +62,7 @@ cd $BUILD_DIR
 
 mkdir -p $BUILD_DIR/.profile.d
 echo "PATH="$PATH > $BUILD_DIR/.profile.d/lua.sh
+echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/app/torch/lib' > $BUILD_DIR/.profile.d/lua.sh
 
 echo "Checking to see if $BUILD_DIR/setup.sh exists..."
 if [ -f "$BUILD_DIR/setup.sh" ]; then

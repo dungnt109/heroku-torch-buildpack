@@ -53,5 +53,5 @@ mkdir -p $BUILD_DIR/.profile.d
 echo 'export PATH=/app/torch/bin:/app/torch/sbin:$PATH' >> $BUILD_DIR/.profile.d/lua.sh
 echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/app/torch/lib' >> $BUILD_DIR/.profile.d/lua.sh
 
-# echo 'site_config.LUA_INCDIR=[[/app/torch/include]]' >> $BIN_DIR/torch/share/lua/5.1/luarocks/site_config.lua
-# echo 'site_config.LUA_LIBDIR=[[/app/torch/lib/lua/5.1/]]' >> $BIN_DIR/torch/share/lua/5.1/luarocks/site_config.lua
+echo 'site_config.LUA_INCDIR=[[/app/torch/include]]' >> $BIN_DIR/../torch/share/lua/5.1/luarocks/site_config.lua
+echo 'site_config.LUA_LIBDIR=[[/app/torch/lib/lua/5.1/]]' >> $BIN_DIR/../torch/share/lua/5.1/luarocks/site_config.lua

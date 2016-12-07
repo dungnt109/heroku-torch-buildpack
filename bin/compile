@@ -50,8 +50,9 @@ mkdir -p $CACHE_DIR/torch/share/lua/5.1
 mkdir -p $BUILD_DIR/.profile.d
 echo "PATH="$PATH > $BUILD_DIR/.profile.d/lua.sh
 # echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:$CACHE_DIR/torch/lib" >> $BUILD_DIR/.profile.d/lua.sh
-echo "export \"LUA_PATH=$CACHE_DIR/torch/share/lua/5.1/?.lua;$CACHE_DIR/torch/share/lua/5.1/?/init.lua;\$LUA_PATH\"" >> $BUILD_DIR/.profile.d/lua.sh
-echo "export \"LUA_CPATH=$CACHE_DIR/torch/share/lua/5.1/?.so;\$LUA_CPATH\"" >> $BUILD_DIR/.profile.d/lua.sh
+echo "export \"LUA_PATH=$CACHE_DIR/torch/share/lua/5.1/?.lua;$LUA_PATH"" >> $BUILD_DIR/.profile.d/lua.sh
+echo "export \"LUA_PATH=$CACHE_DIR/torch/share/lua/5.1/?/init.lua;$LUA_PATH"" >> $BUILD_DIR/.profile.d/lua.sh
+echo "export \"LUA_CPATH=$CACHE_DIR/torch/share/lua/5.1/?.so;$LUA_CPATH"" >> $BUILD_DIR/.profile.d/lua.sh
 
 . $BUILD_DIR/.profile.d/lua.sh
 env

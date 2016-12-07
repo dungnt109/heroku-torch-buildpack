@@ -3,7 +3,7 @@ CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 LD_LIBRARY_PATH:/app/torch/lib
 
-PATH=/sbin:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/bin:/usr/local/bin:/bin
+PATH=$CACHE_DIR/cmake-3.7.1/bin:/sbin:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/bin:/usr/local/bin:/bin
 set -o errexit    # always exit on error
 set -o pipefail   # don't ignore exit codes when piping output
 set -o nounset    # fail on unset variables
@@ -34,6 +34,7 @@ else
   git clone https://github.com/torch/luajit-rocks.git
 fi
 
+rm -rf $CACHE_DIR/luajit-rocks/build
 if [ ! -d "$CACHE_DIR/luajit-rocks/build" ]; then
   cd $CACHE_DIR
   echo 'Building luajit and luarocks...'

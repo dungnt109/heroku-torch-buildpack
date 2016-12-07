@@ -15,59 +15,43 @@ mkdir -p $CACHE_DIR/torch
 echo "Switching to the $CACHE_DIR directory..."
 cd $CACHE_DIR
 
-echo 'Checking to see if cmake is installed....'
+echo 'Checking to see if cmake is fetched....'
 if hash cmake 2>/dev/null; then
   echo 'cmake is installed, skipping...'
 else
   echo 'Installing cmake...'
   curl -O 'https://cmake.org/files/v3.7/cmake-3.7.1.tar.gz'
   tar zxf cmake-3.7.1.tar.gz
-  cd cmake-3.7.1
-  ./bootstrap --prefix=$CACHE_DIR/torch
-  make
-  make install
 fi
 
-echo 'Checking to see if luajit and luarocks are installed....'
+echo 'Building cmake...'
+cd cmake-3.7.1
+./bootstrap --prefix=$BUILD_DIR/torch
+make
+make install
+
+echo "Switching to the $CACHE_DIR directory..."
+cd $CACHE_DIR
+
+echo 'Checking to see if luajit and luarocks are fetched....'
 if hash luarocks 2>/dev/null; then
-  echo 'luajit and luarocks are installed, skipping...'
+  echo 'luajit and luarocks are fetched, skipping...'
 else
   echo 'Fetching luajit and luarocks...'
   git clone https://github.com/torch/luajit-rocks.git
-  cd luajit-rocks
-  mkdir build
-  cd build
-  cmake .. -DCMAKE_INSTALL_PREFIX=$CACHE_DIR/torch
-  make install
 fi
+
+cd luajit-rocks
+mkdir build
+cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=$BUILD_DIR/torch
+make install
 
 echo "Switching to the $BUILD_DIR directory..."
 cd $BUILD_DIR
 
-# echo 'Make sure we own /usr/local directory...'
-# chmod -R +x /usr/local
-
-# echo "Making sure $CACHE_DIR/torch/share/lua/5.1 directory exists..."
-# mkdir -p $CACHE_DIR/torch/share/lua/5.1
-
 mkdir -p $BUILD_DIR/.profile.d
 echo "PATH="$PATH > $BUILD_DIR/.profile.d/lua.sh
-# echo "export LD_LIBRARY_PATH=$CACHE_DIR/torch/lib" >> $BUILD_DIR/.profile.d/lua.sh
-# echo "export \"LUA_PATH=$CACHE_DIR/torch/share/lua/5.1/?.lua\"" >> $BUILD_DIR/.profile.d/lua.sh
-# echo "export \"LUA_PATH=$CACHE_DIR/torch/share/lua/5.1/?/init.lua\"" >> $BUILD_DIR/.profile.d/lua.sh
-# echo "export \"LUA_CPATH=$CACHE_DIR/torch/share/lua/5.1/?.so\"" >> $BUILD_DIR/.profile.d/lua.sh
-
-# . $BUILD_DIR/.profile.d/lua.sh
-# env
-# echo '---'
-# echo "PATH is $PATH"
-# echo '---'
-# echo "LD_LIBRARY_PATH is $LD_LIBRARY_PATH"
-# echo '---'
-# echo "LUA_PATH is $LUA_PATH"
-# echo '---'
-# echo "LUA_CPATH is $LUA_CPATH"
-# echo '---'
 
 echo "Checking to see if $BUILD_DIR/setup.sh exists..."
 if [ -f "$BUILD_DIR/setup.sh" ]; then

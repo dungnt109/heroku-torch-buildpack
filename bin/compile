@@ -22,12 +22,16 @@ else
   echo 'Installing cmake...'
   curl -O 'https://cmake.org/files/v3.7/cmake-3.7.1.tar.gz'
   tar zxf cmake-3.7.1.tar.gz
+
+  echo 'Building cmake...'
+  cd cmake-3.7.1
+  ./bootstrap --prefix=$BUILD_DIR/torch
+  make
 fi
 
-echo 'Building cmake...'
-cd cmake-3.7.1
-./bootstrap --prefix=$BUILD_DIR/torch
-make
+echo "Switching to the $CACHE_DIR/cmake-3.7.1 directory..."
+cd $CACHE_DIR/cmake-3.7.1
+echo 'Installing cmake...'
 make install
 
 echo "Switching to the $CACHE_DIR directory..."
@@ -39,12 +43,17 @@ if hash luarocks 2>/dev/null; then
 else
   echo 'Fetching luajit and luarocks...'
   git clone https://github.com/torch/luajit-rocks.git
+
+  echo 'Building luajit and luarocks...'
+  cd luajit-rocks
+  mkdir build
+  cd build
+  cmake .. -DCMAKE_INSTALL_PREFIX=$BUILD_DIR/torch
 fi
 
-cd luajit-rocks
-mkdir build
-cd build
-cmake .. -DCMAKE_INSTALL_PREFIX=$BUILD_DIR/torch
+echo "Switching to the $CACHE_DIR/luajit-rocks/build directory..."
+cd $CACHE_DIR/luajit-rocks/build
+echo 'Installing luajit and luarocks...'
 make install
 
 echo "Switching to the $BUILD_DIR directory..."

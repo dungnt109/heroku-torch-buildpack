@@ -3,7 +3,7 @@ CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 LD_LIBRARY_PATH:/app/torch/lib
 
-PATH=/sbin:/app/torch/bin:/app/torch/sbin:$BUILD_DIR/torch/bin:$BUILD_DIR/torch/sbin:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/bin:/usr/local/bin:/bin
+PATH=/sbin:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/bin:/usr/local/bin:/bin
 set -o errexit    # always exit on error
 set -o pipefail   # don't ignore exit codes when piping output
 set -o nounset    # fail on unset variables
@@ -12,39 +12,33 @@ unset GIT_DIR     # Avoid GIT_DIR leak from previous build step
 echo "Making sure $CACHE_DIR/torch exists..."
 mkdir -p $CACHE_DIR/torch
 
-echo "Switching to the $CACHE_DIR directory..."
-cd $CACHE_DIR
-
 echo 'Checking to see if cmake is fetched....'
-if hash cmake 2>/dev/null; then
-  echo 'cmake is installed, skipping...'
-else
+if [ ! -d "$CACHE_DIR/cmake-3.7.1" ]; then
+  cd $CACHE_DIR
   echo 'Installing cmake...'
   curl -O 'https://cmake.org/files/v3.7/cmake-3.7.1.tar.gz'
   tar zxf cmake-3.7.1.tar.gz
+fi
 
+if [ ! -f "$CACHE_DIR/cmake-3.7.1/bin/cmake" ]; then
+  cd $CACHE_DIR
   echo 'Building cmake...'
   cd cmake-3.7.1
-  ./bootstrap --prefix=$BUILD_DIR/torch
+  ./bootstrap
   make
 fi
 
-echo "Switching to the $CACHE_DIR/cmake-3.7.1 directory..."
-cd $CACHE_DIR/cmake-3.7.1
-echo 'Installing cmake...'
-make install
-
-echo "Switching to the $CACHE_DIR directory..."
-cd $CACHE_DIR
 echo 'Checking to see if luajit and luarocks are fetched....'
 if [ -d "$CACHE_DIR/luajit-rocks" ]; then
   echo 'luajit and luarocks are fetched, skipping...'
 else
+  cd $CACHE_DIR
   echo 'Fetching luajit and luarocks...'
   git clone https://github.com/torch/luajit-rocks.git
 fi
 
 if [ ! -d "$CACHE_DIR/luajit-rocks/build" ]; then
+  cd $CACHE_DIR
   echo 'Building luajit and luarocks...'
   cd $CACHE_DIR/luajit-rocks
   mkdir build

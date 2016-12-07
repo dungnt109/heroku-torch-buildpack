@@ -34,7 +34,6 @@ else
   git clone https://github.com/torch/luajit-rocks.git
 fi
 
-rm -rf $CACHE_DIR/luajit-rocks/build
 if [ ! -d "$CACHE_DIR/luajit-rocks/build" ]; then
   cd $CACHE_DIR
   echo 'Building luajit and luarocks...'
@@ -56,6 +55,8 @@ cd $BUILD_DIR
 mkdir -p $BUILD_DIR/.profile.d
 echo 'export PATH=/app/torch/bin:/app/torch/sbin:$PATH' >> $BUILD_DIR/.profile.d/lua.sh
 echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/app/torch/lib' >> $BUILD_DIR/.profile.d/lua.sh
+
+export PATH=$BUILD_DIR/torch/bin:$PATH
 
 echo "Checking to see if $BUILD_DIR/setup.sh exists..."
 if [ -f "$BUILD_DIR/setup.sh" ]; then

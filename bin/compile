@@ -44,8 +44,8 @@ fi
 echo "Switching to the $BUILD_DIR directory..."
 cd $BUILD_DIR
 
-echo 'Make sure we own /usr/local directory...'
-chmod -R +x /usr/local
+# echo 'Make sure we own /usr/local directory...'
+# chmod -R +x /usr/local
 
 # echo "Making sure $CACHE_DIR/torch/share/lua/5.1 directory exists..."
 # mkdir -p $CACHE_DIR/torch/share/lua/5.1

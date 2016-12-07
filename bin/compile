@@ -60,7 +60,7 @@ awk 'NR == 1 {$0="#!/app/torch/bin/luajit"} 1' $BUILD_DIR/torch/bin/luarocks > $
 mv $BUILD_DIR/torch/bin/luarocks{,.old}
 mv $BUILD_DIR/torch/bin/luarocks{.new,}
 rm $BUILD_DIR/torch/bin/luarocks.old
-awk 'NR == 3 {$0="package.path = [[/app/torch/share/lua/5.1?.lua;/app/torch/share/lua/5.1/?/init.lua;]]..package.path"} 1' $BUILD_DIR/torch/bin/luarocks > $BUILD_DIR/torch/bin/luarocks.new
+awk 'NR == 3 {$0="package.path = [[/app/torch/share/lua/5.1/?.lua;/app/torch/share/lua/5.1/?/init.lua;]]..package.path"} 1' $BUILD_DIR/torch/bin/luarocks > $BUILD_DIR/torch/bin/luarocks.new
 mv $BUILD_DIR/torch/bin/luarocks{,.old}
 mv $BUILD_DIR/torch/bin/luarocks{.new,}
 rm $BUILD_DIR/torch/bin/luarocks.old

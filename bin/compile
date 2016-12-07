@@ -44,8 +44,8 @@ fi
 echo "Switching to the $BUILD_DIR directory..."
 cd $BUILD_DIR
 
-echo "Making sure $CACHE_DIR/torch/share/lua/5.1 directory exists..."
-mkdir -p $CACHE_DIR/torch/share/lua/5.1
+# echo "Making sure $CACHE_DIR/torch/share/lua/5.1 directory exists..."
+# mkdir -p $CACHE_DIR/torch/share/lua/5.1
 
 mkdir -p $BUILD_DIR/.profile.d
 echo "PATH="$PATH > $BUILD_DIR/.profile.d/lua.sh

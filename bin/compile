@@ -3,9 +3,6 @@ CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 LD_LIBRARY_PATH:/app/torch/lib
 
-rm -rf $CACHE_DIR/cmake-3.7.1
-rm -rf $CACHE_DIR/luajit-rocks
-
 PATH=/sbin:/app/torch/bin:/app/torch/sbin:$BUILD_DIR/torch/bin:$BUILD_DIR/torch/sbin:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/bin:/usr/local/bin:/bin
 set -o errexit    # always exit on error
 set -o pipefail   # don't ignore exit codes when piping output
@@ -64,8 +61,8 @@ echo "Switching to the $BUILD_DIR directory..."
 cd $BUILD_DIR
 
 mkdir -p $BUILD_DIR/.profile.d
-echo "PATH="$PATH > $BUILD_DIR/.profile.d/lua.sh
-echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/app/torch/lib' > $BUILD_DIR/.profile.d/lua.sh
+echo 'export PATH=/app/torch/bin:/app/torch/sbin:$PATH' >> $BUILD_DIR/.profile.d/lua.sh
+echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/app/torch/lib' >> $BUILD_DIR/.profile.d/lua.sh
 
 echo "Checking to see if $BUILD_DIR/setup.sh exists..."
 if [ -f "$BUILD_DIR/setup.sh" ]; then
